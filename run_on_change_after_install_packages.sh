@@ -41,9 +41,9 @@ install_deb_from_url() {
 }
 
 main() {
-    add_repository "signal-xenial" "$SIGNAL_REPO" "signal-desktop" "$SIGNAL_KEY_URL"
-    add_repository "vscodium" "$VSCODIUM_REPO" "vscodium-archive" "$VSCODIUM_KEY_URL"
-    add_repository "prebuilt-mpr" "$MPR_REPO" "prebuilt-mpr-archive" "$MPR_KEY_URL"
+    add_deb_repository "signal-xenial" "$SIGNAL_REPO" "signal-desktop" "$SIGNAL_KEY_URL"
+    add_deb_repository "vscodium" "$VSCODIUM_REPO" "vscodium-archive" "$VSCODIUM_KEY_URL"
+    add_deb_repository "prebuilt-mpr" "$MPR_REPO" "prebuilt-mpr-archive" "$MPR_KEY_URL"
 
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
 
