@@ -25,7 +25,7 @@ readonly REPOS=(
     "signal-xenial  https://updates.signal.org/desktop/apt xenial main                      signal-desktop          https://updates.signal.org/desktop/apt/keys.asc"
     "vscodium       https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main  vscodium-archive        https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg"
     "prebuilt-mpr   https://proget.makedeb.org prebuilt-mpr ${UBUNTU_CODENAME}              prebuilt-mpr-archive    https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub"
-    "megasync       https://mega.nz/linux/repo/xUbuntu ${UBUNTU_RELEASE} ./                meganz-archive          https://mega.nz/keys/MEGA_signing.key"
+    "megasync       https://mega.nz/linux/repo/xUbuntu ${UBUNTU_RELEASE} ./                 meganz-archive          https://mega.nz/keys/MEGA_signing.key"
 )
 readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
 
