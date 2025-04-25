@@ -6,7 +6,7 @@ source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mi
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"
 readonly TEMP_DEB_DIR="/tmp/debfiles"
-readonly REPO_FORMAT="deb [arch=amd64 signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s"
+readonly REPO_FORMAT="deb [arch=amd64 signed-by=$KEYRING_DIR/%s-keyring.gpg] %s"
 readonly AUTO_CPUFREQ_PATH="/tmp/auto-cpufreq"
 readonly PACKAGES=(
     git
@@ -31,6 +31,7 @@ readonly MPR_REPO="https://proget.makedeb.org prebuilt-mpr $DISTRIB_CODENAME"
 readonly MEGA_KEY_URL="https://mega.nz/keys/MEGA_signing.key"
 readonly MEGA_REPO="https://mega.nz/linux/repo/xUbuntu_$DISTRIB_RELEASE/ ./"
 readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
+readonly AUTO_CPUFREQ_URL="https://github.com/AdnanHodzic/auto-cpufreq.git"
 
 # Functions
 add_apt_repository() {
@@ -46,7 +47,7 @@ install_deb_from_url() {
 }
 
 install_auto_cpufreq() {
-    git clone --depth=1 https://github.com/AdnanHodzic/auto-cpufreq.git "$AUTO_CPUFREQ_PATH"
+    git clone --depth=1 "$AUTO_CPUFREQ_URL" "$AUTO_CPUFREQ_PATH"
     sudo "$AUTO_CPUFREQ_PATH/auto-cpufreq-installer"
     sudo auto-cpufreq --install
 }
