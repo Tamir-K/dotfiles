@@ -1,7 +1,11 @@
 #!/bin/bash
+#
+# Add custom APT repositories and install packages
+
 set -euo pipefail
 
-source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
+# Get Ubuntu upstream info for Linux Mint
+source /etc/upstream-release/lsb-release 
 
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"

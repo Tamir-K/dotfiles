@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Install protonup using pipx, then install the latest version of protonGE
+# Install auto-cpufreq as a daemon from GitHub
 
 set -euo pipefail
 
