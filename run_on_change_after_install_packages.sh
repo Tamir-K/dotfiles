@@ -77,20 +77,26 @@ install_auto_cpufreq() {
     sudo auto-cpufreq --install
 }
 
-main() {
+add_repositories() {
     add_apt_repository "${SIGNAL_REPO[@]}"
     add_apt_repository "${VSCODIUM_REPO[@]}"
     add_apt_repository "${MEGA_REPO[@]}"
     add_apt_repository "${MPR_REPO[@]}"
+}
 
+install_packages() {
     sudo apt-get update
     sudo apt-get install -y "${PACKAGES[@]}"
-
     install_deb_from_url "${ZOOM_URL}"
+}
 
+main() {
+    add_repositories
+    install_packages
     install_proton
-
     install_auto_cpufreq
 }
 
 main
+
+trap "rm -rf '$TEMP_DEB_DIR' '$AUTO_CPUFREQ_PATH'" EXIT
