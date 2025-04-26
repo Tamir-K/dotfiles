@@ -5,9 +5,9 @@ source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mi
 # Constants
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"
-readonly TEMP_DEB_DIR="/tmp/debfiles"
+readonly TEMP_DEB_DIR=$(mktemp -d)
 readonly REPO_FORMAT="deb [arch=$(dpkg --print-architecture) signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s\n"
-readonly AUTO_CPUFREQ_PATH="/tmp/auto-cpufreq"
+readonly AUTO_CPUFREQ_PATH=$(mktemp -d)
 readonly PACKAGES=(
     git
     virtualbox
@@ -42,7 +42,7 @@ add_apt_repository() {
 
 install_deb_from_url() {
     local package_url=$1 package_name=${1##*/}
-    curl -fsSL -O --create-dirs --output-dir "${TEMP_DEB_DIR}" "${package_url}"
+    curl -fsSL -O --output-dir "${TEMP_DEB_DIR}" "${package_url}"
     sudo apt-get install -y "${TEMP_DEB_DIR}/${package_name}"
 }
 
