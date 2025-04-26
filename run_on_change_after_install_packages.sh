@@ -1,13 +1,13 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
 
-# Constants
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"
 readonly TEMP_DEB_DIR=$(mktemp -d)
-readonly REPO_FORMAT="deb [arch=$(dpkg --print-architecture) signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s\n"
 readonly AUTO_CPUFREQ_PATH=$(mktemp -d)
+readonly REPO_FORMAT="deb [arch=$(dpkg --print-architecture) signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s\n"
 readonly PACKAGES=(
     git
     virtualbox
@@ -22,28 +22,53 @@ readonly PACKAGES=(
     megasync
     nemo-megasync
 )
-readonly SIGNAL_KEY_URL="https://updates.signal.org/desktop/apt/keys.asc"
-readonly SIGNAL_REPO="https://updates.signal.org/desktop/apt xenial main"
-readonly VSCODIUM_KEY_URL="https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg"
-readonly VSCODIUM_REPO="https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main"
-readonly MPR_KEY_URL="https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub"
-readonly MPR_REPO="https://proget.makedeb.org prebuilt-mpr ${DISTRIB_CODENAME}"
-readonly MEGA_KEY_URL="https://mega.nz/keys/MEGA_signing.key"
-readonly MEGA_REPO="https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/ ./"
+readonly SIGNAL_REPO=(
+    signal-xenial
+    "https://updates.signal.org/desktop/apt xenial main"
+    signal-desktop
+    https://updates.signal.org/desktop/apt/keys.asc
+)
+readonly VSCODIUM_REPO=(
+    vscodium
+    "https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main"
+    vscodium-archive
+    https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+)
+readonly MEGA_REPO=(
+    megasync
+    "https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/ ./"
+    meganz-archive
+    https://mega.nz/keys/MEGA_signing.key
+)
+readonly MPR_REPO=(
+    prebuilt-mpr
+    "https://proget.makedeb.org prebuilt-mpr ${DISTRIB_CODENAME}"
+    prebuilt-mpr-archive
+    https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
+)
 readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
 readonly AUTO_CPUFREQ_URL="https://github.com/AdnanHodzic/auto-cpufreq.git"
 
-# Functions
 add_apt_repository() {
-    local repo_name=$1 repo_entry=$2 keyring_name=$3 key_url=$4
+    local repo_name=$1
+    local repo_entry=$2
+    local keyring_name=$3
+    local key_url=$4
     curl -fsSL "${key_url}" | gpg --dearmor | sudo tee "${KEYRING_DIR}/${keyring_name}-keyring.gpg" > /dev/null
     printf "${REPO_FORMAT}" "${keyring_name}" "${repo_entry}" | sudo tee "${SOURCE_LIST_DIR}/${repo_name}.list" > /dev/null
 }
 
 install_deb_from_url() {
-    local package_url=$1 package_name=${1##*/}
+    local package_url=$1
+    local package_name=${package_url##*/}
     curl -fsSL -O --output-dir "${TEMP_DEB_DIR}" "${package_url}"
     sudo apt-get install -y "${TEMP_DEB_DIR}/${package_name}"
+}
+
+install_proton() {
+    pipx ensurepath 
+    pipx install protonup
+    protonup -y
 }
 
 install_auto_cpufreq() {
@@ -53,16 +78,17 @@ install_auto_cpufreq() {
 }
 
 main() {
-    add_apt_repository "signal-xenial" "${SIGNAL_REPO}" "signal-desktop" "${SIGNAL_KEY_URL}"
-    add_apt_repository "vscodium" "${VSCODIUM_REPO}" "vscodium-archive" "${VSCODIUM_KEY_URL}"
-    add_apt_repository "prebuilt-mpr" "${MPR_REPO}" "prebuilt-mpr-archive" "${MPR_KEY_URL}"
-    add_apt_repository "megasync" "${MEGA_REPO}" "meganz-archive" "${MEGA_KEY_URL}"
+    add_apt_repository "${SIGNAL_REPO[@]}"
+    add_apt_repository "${VSCODIUM_REPO[@]}"
+    add_apt_repository "${MEGA_REPO[@]}"
+    add_apt_repository "${MPR_REPO[@]}"
 
-    sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
+    sudo apt-get update
+    sudo apt-get install -y "${PACKAGES[@]}"
 
     install_deb_from_url "${ZOOM_URL}"
 
-    pipx ensurepath && pipx install protonup && protonup -y
+    install_proton
 
     install_auto_cpufreq
 }
