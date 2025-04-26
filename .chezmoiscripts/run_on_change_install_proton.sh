@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Install protonup using pipx, then install the latest version of protonGE
+# Install protonup using pipx,
+# then install the latest version of protonGE
 
 set -euo pipefail
 
