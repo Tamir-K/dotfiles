@@ -6,7 +6,6 @@ source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mi
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"
 readonly TEMP_DEB_DIR=$(mktemp -d)
-readonly AUTO_CPUFREQ_PATH=$(mktemp -d)
 readonly REPO_FORMAT="deb [arch=$(dpkg --print-architecture) signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s\n"
 readonly PACKAGES=(
     git
@@ -47,7 +46,6 @@ readonly MPR_REPO=(
     https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
 )
 readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
-readonly AUTO_CPUFREQ_URL="https://github.com/AdnanHodzic/auto-cpufreq.git"
 
 add_apt_repository() {
     local repo_name=$1
@@ -65,18 +63,6 @@ install_deb_from_url() {
     sudo apt-get install -y "${TEMP_DEB_DIR}/${package_name}"
 }
 
-install_proton() {
-    pipx ensurepath 
-    pipx install protonup
-    protonup -y
-}
-
-install_auto_cpufreq() {
-    git clone --depth=1 "${AUTO_CPUFREQ_URL}" "${AUTO_CPUFREQ_PATH}"
-    sudo "${AUTO_CPUFREQ_PATH}/auto-cpufreq-installer"
-    sudo auto-cpufreq --install
-}
-
 add_repositories() {
     add_apt_repository "${SIGNAL_REPO[@]}"
     add_apt_repository "${VSCODIUM_REPO[@]}"
@@ -90,13 +76,15 @@ install_packages() {
     install_deb_from_url "${ZOOM_URL}"
 }
 
+cleanup() {
+    rm -rf "${TEMP_DEB_DIR}"
+}
+
 main() {
     add_repositories
     install_packages
-    install_proton
-    install_auto_cpufreq
 }
 
 main
 
-trap "rm -rf '$TEMP_DEB_DIR' '$AUTO_CPUFREQ_PATH'" EXIT
+trap cleanup EXIT
