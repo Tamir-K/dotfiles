@@ -50,6 +50,7 @@ readonly MPR_REPO=(
     https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
 )
 readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
+readonly CHEZMOI_URL="https://github.com/twpayne/chezmoi/releases/download/v2.62.2/chezmoi_2.62.2_linux_amd64.tar.gz"
 
 add_apt_repository() {
     local repo_name=$1
@@ -78,6 +79,7 @@ install_packages() {
     sudo apt-get update
     sudo apt-get install -y "${PACKAGES[@]}"
     install_deb_from_url "${ZOOM_URL}"
+    install_deb_from_url "${CHEZMOI_URL}"
 }
 
 cleanup() {
