@@ -62,7 +62,7 @@ add_apt_repository() {
 
 install_deb_from_url() {
     local package_url=$1
-    local package_name="${package_url##*/}"
+    local package_name=${package_url##*/}
     curl -fsSL -O --output-dir "${TEMP_DEB_DIR}" "${package_url}"
     sudo apt-get install -y "${TEMP_DEB_DIR}/${package_name}"
 }
