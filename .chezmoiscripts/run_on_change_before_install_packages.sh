@@ -24,6 +24,7 @@ readonly PACKAGES=(
     prismlauncher
     megasync
     nemo-megasync
+    7zr
 )
 readonly SIGNAL_REPO=(
     signal-xenial
