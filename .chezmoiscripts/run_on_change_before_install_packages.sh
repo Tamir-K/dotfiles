@@ -85,10 +85,9 @@ cleanup() {
 }
 
 main() {
+    trap cleanup EXIT
     add_repositories
     install_packages
 }
 
 main
-
-trap cleanup EXIT
