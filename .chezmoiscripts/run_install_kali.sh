@@ -14,7 +14,7 @@ readonly DOWNLOAD_DIR=$(mktemp -d)
 install_kali_vm() {
     local archive_name="${KALI_URL##*/}"
     curl -fsSL -O --output-dir "${DOWNLOAD_DIR}" "${KALI_URL}"
-    7zr x "${DOWNLOAD_DIR}/${archive_name}" -o "${VM_DIR}"
+    7z x "${DOWNLOAD_DIR}/${archive_name}" -o "${VM_DIR}"
     VBoxManage import "${VM_DIR}/${OVA_FILE}" --vsys 0 --vmname "${VM_NAME}"
     VBoxManage modifyvm "$VM_NAME" --memory 2048 --vram 16 --nic1 nat
 }
@@ -27,3 +27,5 @@ main() {
     trap cleanup EXIT
     install_kali_vm
 }
+
+main
