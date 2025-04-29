@@ -18,9 +18,8 @@ cleanup() {
 }
 
 main() {
+    trap cleanup EXIT
     install_auto_cpufreq
 }
 
 main
-
-trap cleanup EXIT
