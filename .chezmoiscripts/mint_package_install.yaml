@@ -1,0 +1,65 @@
+- name: Mint Package Install
+  hosts: localhost
+  vars:
+    packages:
+      - git
+      - virtualbox
+      - wireshark
+      - steam
+      - pipx
+      - texlive-full
+      - torbrowser-launcher
+      - signal-desktop
+      - codium
+      - prismlauncher
+      - megasync
+      - nemo-megasync
+    repositories:
+      - name: signal
+        types: deb
+        uris: https://updates.signal.org/desktop/apt
+        suites: xenial
+        components:
+          - main
+        signed_by: https://updates.signal.org/desktop/apt/keys.asc
+        architectures: amd64
+      - name: vscodium
+        types: deb
+        uris: https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs
+        suites: vscodium
+        components:
+          - main
+        signed_by: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+        architectures: amd64
+      - name: megasync
+        types: deb
+        uris: "https://mega.nz/linux/repo/xUbuntu_{{ lookup('ansible.builtin.env', 'DISTRIB_RELEASE') }}"
+        suites: ./
+        signed_by: https://mega.nz/keys/MEGA_signing.key
+        architectures: amd64
+      - name: prebuilt-mpr
+        types: deb
+        uris: https://proget.makedeb.org
+        suites: prebuilt-mpr
+        components:
+          - "{{ lookup('ansible.builtin.env', 'DISTRIB_CODENAME') }}"
+        signed_by: https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
+        architectures: amd64
+    external_packages:
+      - https://zoom.us/client/latest/zoom_amd64.deb
+  tasks:
+    - name: Add Custom APT Repositories
+      ansible.builtin.deb822_repository: "{{ item }}"
+      with_items: "{{ repositories }}"
+      become: True
+    - name: Install APT packages
+      ansible.builtin.apt:
+        name: "{{ packages }}"
+        update_cache: True
+        state: latest
+      become: True
+    - name: Install External DEB packages
+      ansible.builtin.apt:
+        deb: "{{ item }}"
+      become: True
+      loop: "{{ external_packages }}"
