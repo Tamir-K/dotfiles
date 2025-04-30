@@ -1,12 +1,12 @@
 - name: Mint Package Install
   hosts: localhost
+  become: True
   vars:
     packages:
       - git
       - virtualbox
       - wireshark
       - steam
-      - pipx
       - texlive-full
       - torbrowser-launcher
       - signal-desktop
@@ -19,16 +19,14 @@
         types: deb
         uris: https://updates.signal.org/desktop/apt
         suites: xenial
-        components:
-          - main
+        components: [main]
         signed_by: https://updates.signal.org/desktop/apt/keys.asc
         architectures: amd64
       - name: vscodium
         types: deb
         uris: https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs
         suites: vscodium
-        components:
-          - main
+        components: [main]
         signed_by: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
         architectures: amd64
       - name: megasync
@@ -41,8 +39,7 @@
         types: deb
         uris: https://proget.makedeb.org
         suites: prebuilt-mpr
-        components:
-          - "{{ lookup('ansible.builtin.env', 'DISTRIB_CODENAME') }}"
+        components: ["{{ lookup('ansible.builtin.env', 'DISTRIB_CODENAME') }}"]
         signed_by: https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
         architectures: amd64
     external_packages:
@@ -50,16 +47,13 @@
   tasks:
     - name: Add Custom APT Repositories
       ansible.builtin.deb822_repository: "{{ item }}"
-      with_items: "{{ repositories }}"
-      become: True
+      loop: "{{ repositories }}"
     - name: Install APT packages
       ansible.builtin.apt:
         name: "{{ packages }}"
         update_cache: True
         state: latest
-      become: True
     - name: Install External DEB packages
       ansible.builtin.apt:
         deb: "{{ item }}"
-      become: True
       loop: "{{ external_packages }}"
