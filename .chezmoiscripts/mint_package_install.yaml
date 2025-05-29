@@ -12,8 +12,6 @@
       - signal-desktop
       - codium
       - prismlauncher
-      - megasync
-      - nemo-megasync
     repositories:
       - name: signal
         types: deb
@@ -29,12 +27,6 @@
         components: [main]
         signed_by: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
         architectures: amd64
-      - name: megasync
-        types: deb
-        uris: "https://mega.nz/linux/repo/xUbuntu_{{ lookup('ansible.builtin.env', 'DISTRIB_RELEASE') }}"
-        suites: ./
-        signed_by: https://mega.nz/keys/MEGA_signing.key
-        architectures: amd64
       - name: prebuilt-mpr
         types: deb
         uris: https://proget.makedeb.org
@@ -43,6 +35,8 @@
         signed_by: https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
         architectures: amd64
     external_packages:
+      # Mega runs a post install script that adds an old style list file for their repo, conflicting with the new style source, resulting in a corrupted apt config. Just let them do their thing.
+      - https://mega.nz/linux/repo/xUbuntu_{{ lookup('ansible.builtin.env', 'DISTRIB_RELEASE') }}/amd64/megasync-xUbuntu_{{ lookup('ansible.builtin.env', 'DISTRIB_RELEASE') }}_amd64.deb
       - https://zoom.us/client/latest/zoom_amd64.deb
   tasks:
     - name: Add Custom APT Repositories
