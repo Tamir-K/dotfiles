@@ -19,7 +19,7 @@ install_packages() {
     sudo apt-get install -y ansible
     source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
     export DISTRIB_RELEASE DISTRIB_CODENAME
-    ansible-playbook mint_package_install.yaml
+    ansible-playbook .mint_package_install.yaml
 }
 
 # Install auto-cpufreq daemon from GitHub
