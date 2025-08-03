@@ -40,7 +40,7 @@ install_deb_from_url() {
 
 install_packages() {
     sudo apt-get install -y "${DEPENDENCIES[@]}"
-    printf "%s\n" "${EXT_REPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
+    printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
     source add_prebuilt_mpr.sh
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
     install_deb_from_url "${MEGA_URL}"
