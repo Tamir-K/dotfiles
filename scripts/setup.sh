@@ -49,6 +49,7 @@ install_auto_cpufreq() {
 main() {
     install_packages
     install_auto_cpufreq
+    source install_kali.sh
 }
 
 main
