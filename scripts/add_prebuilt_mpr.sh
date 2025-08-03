@@ -3,6 +3,8 @@
 # add_prebuilt_mpr.sh
 # Add the prebuilt MPR Debian repo to the source list
 
+set -euo pipefail
+
 source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
 
 readonly KEYRING_DIR="/usr/share/keyrings"
