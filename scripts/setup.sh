@@ -14,7 +14,7 @@ readonly PACKAGES=(
     steam
     texlive-full
     torbrowser-launcher
-    7z
+    p7zip
     fzf
     signal-desktop
     codium
