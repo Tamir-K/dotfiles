@@ -18,8 +18,10 @@ readonly PACKAGES=(
     codium
     prismlauncher
 )
-readonly MEGA_URL="https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb"
-readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
+readonly EXTERNAL_PACKAGES=(
+    "https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb" # Mega
+    "https://zoom.us/client/latest/zoom_amd64.deb"  # Zoom
+)
 readonly EXTREPO_NAMES=(signal vscodium)
 readonly CODIUM_EXTENSIONS=(
     foxundermoon.shell-format
@@ -31,11 +33,11 @@ readonly CODIUM_EXTENSIONS=(
 readonly AUTO_CPUFREQ_URL="https://github.com/AdnanHodzic/auto-cpufreq.git"
 
 install_deb_from_url() {
-    local temp_dir=$(mktemp -d)
+    local temp_file=$(mktemp --suffix=.deb)
     local package_url=$1
-    local package_name="${package_url##*/}"
-    curl -fsSL -O --output-dir "${temp_dir}" "${package_url}"
-    sudo apt-get install -y "${temp_dir}/${package_name}"
+    trap 'rm -f "${temp_file}"' EXIT
+    curl -fsSL -o "${temp_file}" "${package_url}"
+    sudo apt-get install -y "${temp_file}"
 }
 
 install_packages() {
@@ -43,8 +45,7 @@ install_packages() {
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
     source add_prebuilt_mpr.sh
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
-    install_deb_from_url "${MEGA_URL}"
-    install_deb_from_url "${ZOOM_URL}"
+    printf "%s\n" "${EXTERNAL_PACKAGES[@]}" | xargs -n 1 install_deb_from_url # Install external packages
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
 }
 
