@@ -42,6 +42,7 @@ install_deb_from_url() {
 
 install_packages() {
     sudo apt-get install -y "${DEPENDENCIES[@]}"
+    sudo sed -i 's/# - non-free/- non-free/' /etc/extrepo/config.yaml
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
     source add_prebuilt_mpr.sh
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
