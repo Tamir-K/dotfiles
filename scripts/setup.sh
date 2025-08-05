@@ -18,10 +18,8 @@ readonly PACKAGES=(
     codium
     prismlauncher
 )
-readonly EXTERNAL_PACKAGES=(
-    "https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb" # Mega
-    "https://zoom.us/client/latest/zoom_amd64.deb"  # Zoom
-)
+readonly MEGA_URL="https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb"
+readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
 readonly EXTREPO_NAMES=(signal vscodium)
 readonly CODIUM_EXTENSIONS=(
     foxundermoon.shell-format
@@ -46,7 +44,8 @@ install_packages() {
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
     source "$HOME/scripts/add_prebuilt_mpr.sh"
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
-    printf "%s\n" "${EXTERNAL_PACKAGES[@]}" | xargs -n 1 install_deb_from_url # Install external packages
+    install_deb_from_url $MEGA_URL
+    install_deb_from_url $ZOOM_URL
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
 }
 
