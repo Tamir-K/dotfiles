@@ -1,4 +1,5 @@
 alias cls="clear"
+alias ipconfig="ifconfig"
 alias home="cd ~"
 alias ..="cd .."
 
