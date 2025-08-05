@@ -1,21 +1,10 @@
 #!/bin/bash
-#
-# add_prebuilt_mpr.sh
-# Add the prebuilt MPR Debian repo to the source list
-
-set -euo pipefail
-
-source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
+# apt_utils.sh
+# Utility functions for the apt package manager
 
 readonly KEYRING_DIR="/usr/share/keyrings"
 readonly SOURCE_LIST_DIR="/etc/apt/sources.list.d"
 readonly REPO_FORMAT="deb [arch=$(dpkg --print-architecture) signed-by=${KEYRING_DIR}/%s-keyring.gpg] %s\n"
-readonly MPR_REPO=(
-    prebuilt-mpr
-    "https://proget.makedeb.org prebuilt-mpr ${DISTRIB_CODENAME}"
-    prebuilt-mpr-archive
-    https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
-)
 
 add_apt_repository() {
     local repo_name=$1
@@ -26,4 +15,10 @@ add_apt_repository() {
     printf "${REPO_FORMAT}" "${keyring_name}" "${repo_entry}" | sudo tee "${SOURCE_LIST_DIR}/${repo_name}.list" > /dev/null
 }
 
-add_apt_repository "${MPR_REPO[@]}"
+install_deb_from_url() {
+    local temp_file=$(mktemp --suffix=.deb)
+    local package_url=$1
+    trap 'rm -f "${temp_file}"' EXIT
+    curl -fsSL -o "${temp_file}" "${package_url}"
+    sudo apt-get install -y "${temp_file}"
+}
