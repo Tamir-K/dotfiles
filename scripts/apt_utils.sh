@@ -18,7 +18,7 @@ add_apt_repository() {
 install_deb_from_url() {
     local temp_file=$(mktemp --suffix=.deb)
     local package_url=$1
-    trap 'rm -f "${temp_file}"' EXIT
     curl -fsSL -o "${temp_file}" "${package_url}"
     sudo apt-get install -y "${temp_file}"
+    rm -f "${temp_file}"
 }
