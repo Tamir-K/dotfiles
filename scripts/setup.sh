@@ -7,6 +7,7 @@ set -euo pipefail
 
 source /etc/upstream-release/lsb-release # Get Ubuntu upstream info for Linux Mint
 
+readonly SCRIPT_DIRECTORY="${HOME}/scripts"
 readonly DEPENDENCIES=(extrepo git)
 readonly PACKAGES=(
     virtualbox
@@ -28,7 +29,6 @@ readonly CODIUM_EXTENSIONS=(
     ms-python.debugpy
     ms-python.python
 )
-readonly AUTO_CPUFREQ_URL="https://github.com/AdnanHodzic/auto-cpufreq.git"
 
 install_deb_from_url() {
     local temp_file=$(mktemp --suffix=.deb)
@@ -42,25 +42,17 @@ install_packages() {
     sudo apt-get install -y "${DEPENDENCIES[@]}"
     sudo sed -i 's/# - non-free/- non-free/' /etc/extrepo/config.yaml
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
-    source "$HOME/scripts/add_prebuilt_mpr.sh"
+    source "${SCRIPT_DIRECTORY}/add_prebuilt_mpr.sh"
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
     install_deb_from_url $MEGA_URL
     install_deb_from_url $ZOOM_URL
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
 }
 
-install_auto_cpufreq() {
-    local temp_dir=$(mktemp -d)
-    trap "rm -rf '${temp_dir}'" EXIT
-    git clone --depth=1 "${AUTO_CPUFREQ_URL}" "${temp_dir}"
-    sudo "${temp_dir}/auto-cpufreq-installer"
-    sudo auto-cpufreq --install
-}
-
 main() {
     install_packages
-    install_auto_cpufreq
-    source install_kali.sh
+    source "${SCRIPT_DIRECTORY}/install_auto_cpufreq.sh"
+    source "${SCRIPT_DIRECTORY}/install_kali.sh"
 }
 
 main
