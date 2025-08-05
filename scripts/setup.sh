@@ -44,7 +44,7 @@ install_packages() {
     sudo apt-get install -y "${DEPENDENCIES[@]}"
     sudo sed -i 's/# - non-free/- non-free/' /etc/extrepo/config.yaml
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
-    source add_prebuilt_mpr.sh
+    source "$HOME/scripts/add_prebuilt_mpr.sh"
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
     printf "%s\n" "${EXTERNAL_PACKAGES[@]}" | xargs -n 1 install_deb_from_url # Install external packages
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
