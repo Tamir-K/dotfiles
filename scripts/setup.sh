@@ -9,7 +9,7 @@ source ${HOME}/scripts/apt_utils.sh     # Get apt util functions
 
 readonly DEPENDENCIES=(extrepo git)
 readonly PACKAGES=(
-    virtualbox
+    virt-manager
     wireshark
     steam
     texlive-full
@@ -43,6 +43,7 @@ install_packages() {
     printf "%s\n" "${EXTREPO_NAMES[@]}" | xargs -n 1 sudo extrepo enable # Enable extrepo repositories
     add_apt_repository "${MPR_REPO[@]}"
     sudo apt-get update && sudo apt-get install -y "${PACKAGES[@]}"
+    sudo usermod -aG libvirt $(whoami) && sudo usermod -aG kvm $(whoami) # Add user to groups needed for virt-manager
     install_deb_from_url $MEGA_URL
     install_deb_from_url $ZOOM_URL
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
@@ -51,7 +52,6 @@ install_packages() {
 main() {
     install_packages
     bash "${HOME}/scripts/install_auto_cpufreq.sh"
-    bash "${HOME}/scripts/install_kali.sh"
 }
 
 main
