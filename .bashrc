@@ -13,7 +13,7 @@ export PATH
 
 shopt -s checkwinsize  # Update LINES and COLUMNS variables after each command to reflect the current terminal window size
 
-eval '$(starship init bash)' # Use starship prompt
+eval "$(starship init bash)" # Use starship prompt
 
 # Source all configuration files in ~/.bashrc.d for modular shell settings.
 if [ -d ~/.bashrc.d ]; then
