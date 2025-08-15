@@ -29,3 +29,8 @@ alias arp='ip neigh show'
 
 # Git alias for dotfiles management
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
+# Package management aliases
+alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi)'
+alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi)'
+alias dnfu='sudo dnf update'
