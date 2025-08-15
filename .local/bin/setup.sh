@@ -19,6 +19,7 @@ readonly PACKAGES=(
     p7zip
     fzf
     zoxide
+    starship
     signal-desktop
     codium
     prismlauncher
@@ -56,6 +57,7 @@ install_packages() {
     sudo dnf config-manager addrepo --from-repofile="${OPENSUSE_BUILD_SERVICE_SIGNAL_REPO}"
     add_vscodium_repo
     sudo dnf copr enable -y g3tchoo/prismlauncher
+    sudo dnf copr enable atim/starship
     sudo dnf install -y "${PACKAGES[@]}"
     sudo usermod -aG libvirt $(whoami) && sudo usermod -aG kvm $(whoami) # Add user to groups needed for virt-manager
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension # Install Codium extensions
@@ -63,7 +65,7 @@ install_packages() {
 
 main() {
     install_packages
-    ./install_auto_cpufreq.sh
+    sudo ./install_auto_cpufreq.sh
 }
 
 main
