@@ -5,7 +5,7 @@
 set -euo pipefail
 
 source /etc/upstream-release/lsb-release    # Get Ubuntu upstream info for Linux Mint
-source ${HOME}/scripts/apt_utils.sh     # Get apt util functions
+source $(pwd)/apt_utils.sh     # Get apt util functions
 
 readonly DEPENDENCIES=(extrepo git)
 readonly PACKAGES=(
@@ -51,7 +51,7 @@ install_packages() {
 
 main() {
     install_packages
-    bash "${HOME}/scripts/install_auto_cpufreq.sh"
+    bash "$(pwd)/scripts/install_auto_cpufreq.sh"
 }
 
 main
