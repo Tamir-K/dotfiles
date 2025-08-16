@@ -31,6 +31,6 @@ alias arp='ip neigh show'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Package management aliases
-alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi)'
-alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi)'
+alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%))'
+alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%))'
 alias dnfu='sudo dnf update'
