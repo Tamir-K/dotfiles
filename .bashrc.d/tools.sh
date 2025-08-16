@@ -6,6 +6,5 @@ if ! [[ $- == *i* ]]; then
 fi
 
 # Tool initializations
-eval "$(antidot init)" # Antidot $HOME modifications
 eval "$(fzf --bash)" # Set up fzf key bindings and fuzzy completion
 eval "$(zoxide init bash)" # Zoxide integration
