@@ -27,7 +27,6 @@ readonly PACKAGES=(
     "https://zoom.us/client/latest/zoom_x86_64.rpm" # Zoom
 )
 readonly CODIUM_EXTENSIONS=(
-    foxundermoon.shell-format
     james-yu.latex-workshop
     ms-python.black-formatter
     ms-python.debugpy
