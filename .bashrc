@@ -13,11 +13,10 @@ shopt -s checkwinsize  # Update LINES and COLUMNS variables after each command t
 eval "$(starship init bash)" # Use starship prompt
 
 # Source all configuration files in ~/.bashrc.d for modular shell settings.
-if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi 
-    done
+shopt -s nullglob
+if [ -d "$HOME/.bashrc.d" ]; then
+  for rc in "$HOME/.bashrc.d"/*; do
+    [ -f "$rc" ] && [ -r "$rc" ] && source "$rc"
+  done
+  unset rc
 fi
-unset rc
