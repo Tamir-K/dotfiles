@@ -4,8 +4,8 @@
 [[ $- == *i* ]] || return
 
 # Ensure user-specific directories are included in PATH for local binaries
-[[ ":PATH:"==∗":HOME/.local/bin:"* ]] || PATH="HOME/.local/bin:PATH"
-[[ ":PATH:"==∗":HOME/bin:"* ]] || PATH="HOME/bin:PATH"
+[[ ":$PATH:" == ∗":$HOME/.local/bin:"* ]] || PATH="$HOME/.local/bin:$PATH"
+[[ ":$PATH:" == ∗":$HOME/bin:"* ]] || PATH="$HOME/bin:$PATH"
 export PATH
 
 shopt -s checkwinsize  # Update LINES and COLUMNS variables after each command to reflect the current terminal window size
