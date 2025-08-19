@@ -1,9 +1,7 @@
 # aliases.sh
 
 # Exit if not running interactively
-if ! [[ $- == *i* ]]; then
-    return
-fi
+[[ $- == i ]] || return
 
 # Enable color support of ls and grep
 if [ -x /usr/bin/dircolors ]; then

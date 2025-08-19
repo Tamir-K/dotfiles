@@ -1,9 +1,7 @@
 # .bashrc
 
 # Exit if not running interactively
-if ! [[ $- == *i* ]]; then
-    return
-fi
+[[ $- == i ]] || return
 
 # Ensure user-specific directories are included in PATH for local binaries
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then

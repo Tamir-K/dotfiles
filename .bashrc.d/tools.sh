@@ -1,9 +1,7 @@
 # tools.sh
 
 # Exit if not running interactively
-if ! [[ $- == *i* ]]; then
-    return
-fi
+[[ $- == *i* ]] || return
 
 # Tool initializations
 eval "$(fzf --bash)" # Set up fzf key bindings and fuzzy completion

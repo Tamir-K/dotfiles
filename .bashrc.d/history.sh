@@ -1,9 +1,7 @@
 # history.sh
 
 # Exit if not running interactively
-if ! [[ $- == *i* ]]; then
-    return
-fi
+[[ $- == *i* ]] || return
 
 # History settings
 shopt -s histappend # Append to the history file, don't overwrite it
