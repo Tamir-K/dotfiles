@@ -27,6 +27,13 @@ alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --m
 alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
 alias dnfu='sudo dnf update'
 
+# Podman aliases
+alias d='podman'
+alias dc='d compose'
+alias dps='d ps'
+alias dpsa='d ps -a'
+alias dstopall='d stop $(d ps -q)'
+
 # More aliases
 alias ..='cd ..'
 alias cls='clear'
