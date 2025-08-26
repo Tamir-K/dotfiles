@@ -19,12 +19,6 @@ alias l='ls -F'
 alias la='ls -AF'
 alias ll='ls -lAF'
 
-# More aliases
-alias ..='cd ..'
-alias cls='clear'
-alias ipconfig='ip addr show'
-alias arp='ip neigh show'
-
 # Git alias for dotfiles management
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
@@ -32,3 +26,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
 alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
 alias dnfu='sudo dnf update'
+
+# More aliases
+alias ..='cd ..'
+alias cls='clear'
+alias ipconfig='ip addr show'
+alias arp='ip neigh show'
