@@ -31,8 +31,6 @@ alias dnfu='sudo dnf update'
 alias d='podman'
 alias dc='d compose'
 alias dps='d ps'
-alias dpsa='d ps -a'
-alias dstopall='d stop $(d ps -q)'
 
 # More aliases
 alias ..='cd ..'
