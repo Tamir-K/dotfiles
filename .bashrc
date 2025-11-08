@@ -8,6 +8,7 @@
 [[ ":$PATH:" == ∗":$HOME/bin:"* ]] || PATH="$HOME/bin:$PATH"
 export PATH
 
+shopt -s autocd  # Enable navigation by typing directory names
 shopt -s checkwinsize  # Update LINES and COLUMNS variables after each command to reflect the current terminal window size
 
 eval "$(starship init bash)" # Use starship prompt

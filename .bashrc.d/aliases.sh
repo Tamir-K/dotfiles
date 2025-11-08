@@ -33,7 +33,6 @@ alias dc='d compose'
 alias dps='d ps'
 
 # More aliases
-alias ..='cd ..'
 alias cls='clear'
 alias ipconfig='ip addr show'
 alias arp='ip neigh show'
