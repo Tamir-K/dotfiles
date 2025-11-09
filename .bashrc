@@ -24,8 +24,8 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # Enable color support of ls and grep
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if command -v dircolors > /dev/null; then
+    eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
 fi
