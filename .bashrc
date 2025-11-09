@@ -40,7 +40,7 @@ alias la='ls -AF'
 alias ll='ls -lAF'
 
 # Git alias for dotfiles management
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Package management aliases
 alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
