@@ -12,11 +12,6 @@ export PATH
 shopt -s autocd # Enable navigation by typing directory names
 shopt -s checkwinsize # Update LINES and COLUMNS variables after each command to reflect the current terminal window size
 
-# Tool integrations
-eval "$(starship init bash)" # starship prompt
-eval "$(fzf --bash)" # fzf key bindings
-eval "$(zoxide init bash)" # zoxide
-
 # History settings
 shopt -s histappend # Append to the history file, don't overwrite it
 HISTCONTROL=ignoreboth # Don't put duplicate lines or lines starting with space in the history. 
@@ -29,6 +24,12 @@ if command -v dircolors > /dev/null; then
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
 fi
+
+# Tool integrations
+source /usr/share/bash-completion/bash_completion # bash-completion
+eval "$(starship init bash)" # starship prompt
+eval "$(fzf --bash)" # fzf key bindings
+eval "$(zoxide init bash)" # zoxide
 
 # grep aliases
 alias egrep='grep -E'
