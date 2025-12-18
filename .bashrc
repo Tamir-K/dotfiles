@@ -29,7 +29,6 @@ fi
 source /usr/share/bash-completion/bash_completion # bash-completion
 eval "$(starship init bash)" # starship prompt
 eval "$(fzf --bash)" # fzf key bindings
-eval "$(zoxide init bash)" # zoxide
 
 # grep aliases
 alias egrep='grep -E'
@@ -44,9 +43,9 @@ alias ll='ls -lAF'
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Package management aliases
-alias dnfi='sudo dnf install $(dnf repoquery --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
-alias dnfr='sudo dnf remove $(dnf repoquery --installed --queryformat="%{name}\n" | fzf --multi --preview="dnf info {}" --preview-window=60%)'
-alias dnfu='sudo dnf update'
+alias apti='sudo dnf install $(apt-cache pkgnames | fzf --multi --preview="dnf info {}" --preview-window=67%)'
+alias aptr='sudo dnf remove $(dpkg-query -W -f="${Package}\n" | fzf --multi --preview="dnf info {}" --preview-window=67%)'
+alias aptu='sudo apt update && sudo apt upgrade -y'
 
 # Podman aliases
 alias d='podman'
