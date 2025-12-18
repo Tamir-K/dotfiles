@@ -25,13 +25,13 @@ readonly PACKAGES=(
 )
 readonly EXTREPO_REPO_NAMES=(mozilla signal vscodium slack)
 readonly EXTREPO_PACKAGES=(signal-desktop codium slack)
-readonly MPR_REPO=(
-    prebuilt-mpr
-    "https://proget.makedeb.org prebuilt-mpr ${DISTRIB_CODENAME}"
-    prebuilt-mpr-archive
-    https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub
+readonly PRISMLAUNCHER_REPO=(
+    prismlauncher
+    "https://prism-launcher-for-debian.github.io/repo ${DISTRIB_CODENAME} main"
+    prismlauncher-archive
+    https://prism-launcher-for-debian.github.io/repo/prismlauncher.gpg
 )
-readonly MPR_PACKAGES=(prismlauncher)
+readonly PRISMLAUNCHER_PACKAGE=(prismlauncher)
 readonly CODIUM_EXTENSIONS=(
     james-yu.latex-workshop
     ms-python.python
@@ -75,9 +75,9 @@ install_extrepo_packages() {
     sudo apt-get update && sudo apt-get install -y "${EXTREPO_PACKAGES[@]}"
 }
 
-install_mpr_packages() {
-    add_apt_repository "${MPR_REPO[@]}"
-    sudo apt-get update && sudo apt-get install -y "${MPR_PACKAGES[@]}"
+install_prismlauncher() {
+    add_apt_repository "${PRISMLAUNCHER_REPO[@]}"
+    sudo apt-get update && sudo apt-get install -y "${PRISMLAUNCHER_PACKAGE[@]}"
 }
 
 install_codium_extensions() {
@@ -88,7 +88,7 @@ main() {
     install_dependencies
     install_regular_packages
     install_extrepo_packages
-    install_mpr_packages
+    install_prismlauncher
     install_deb_from_url $MEGA_URL
     install_deb_from_url $ZOOM_URL
     install_codium_extensions
