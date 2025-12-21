@@ -24,7 +24,7 @@ readonly PACKAGES=(
     gh
 )
 readonly EXTREPO_REPO_NAMES=(mozilla signal vscodium slack)
-readonly EXTREPO_PACKAGES=(signal-desktop codium slack)
+readonly EXTREPO_PACKAGES=(signal-desktop codium slack-desktop)
 readonly PRISMLAUNCHER_REPO=(
     prismlauncher
     "https://prism-launcher-for-debian.github.io/repo ${DISTRIB_CODENAME} main"
