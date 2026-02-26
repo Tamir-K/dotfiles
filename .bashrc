@@ -44,7 +44,7 @@ alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Package management aliases
 alias apti='sudo apt install $(apt-cache pkgnames | fzf --multi --preview="apt show {}" --preview-window=67%)'
-alias aptr='sudo apt remove $(dpkg-query -W -f="${Package}\n" | fzf --multi --preview="apt show {}" --preview-window=67%)'
+alias aptr="sudo apt remove \$(dpkg-query -W -f='\${Package}\n' | fzf --multi --preview='apt show {}' --preview-window=67%)"
 alias aptu='sudo apt update && sudo apt upgrade -y'
 
 # Podman aliases
