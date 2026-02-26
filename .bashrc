@@ -53,6 +53,7 @@ alias dc='d compose'
 alias dps='d ps'
 
 # More aliases
+alias py='python3'
 alias cls='clear'
 alias ipconfig='ip addr show'
 alias arp='ip neigh show'
