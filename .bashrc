@@ -30,7 +30,7 @@ source /usr/share/bash-completion/bash_completion # bash-completion
 eval "$(fzf --bash)" # fzf key bindings
 
 # Prompt config - made using https://bash-prompt-generator.org/
-PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'; 
+PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'
 PS1='\n\[\e[38;5;51;1m\]\w\[\e[0m\] ${PS1_CMD1}\n\[\e[92m\]\$\[\e[0m\] '
 
 # Configure git-prompt options
