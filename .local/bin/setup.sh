@@ -92,7 +92,6 @@ main() {
     install_deb_from_url $MEGA_URL
     install_deb_from_url $ZOOM_URL
     install_codium_extensions
-    curl -sS https://starship.rs/install.sh | sh    # Install starship
 }
 
 main

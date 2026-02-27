@@ -27,8 +27,19 @@ fi
 
 # Tool integrations
 source /usr/share/bash-completion/bash_completion # bash-completion
-eval "$(starship init bash)" # starship prompt
 eval "$(fzf --bash)" # fzf key bindings
+
+# Prompt config - made using https://bash-prompt-generator.org/
+PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'; 
+PS1='\n\[\e[38;5;51;1m\]\w\[\e[0m\] ${PS1_CMD1}\n\[\e[92m\]\$\[\e[0m\] '
+
+# Configure git-prompt options
+# Based on https://www.glukhov.org/post/2025/12/adding-git-repo-details-to-bash-prompt/#method-1-using-gits-built-in-git-promptsh-script
+GIT_PS1_SHOWDIRTYSTATE=1 # Show unstaged (*) and staged (+) changes
+GIT_PS1_SHOWSTASHSTATE=1 # Show if there are stashed changes ($)
+GIT_PS1_SHOWUNTRACKEDFILES=1 # Show if there are untracked files (%)
+GIT_PS1_SHOWUPSTREAM="auto" # Show difference between HEAD and upstream
+GIT_PS1_SHOWCOLORHINTS=1 # Enable colored hints (requires bash 4.0+)
 
 # grep aliases
 alias egrep='grep -E'
