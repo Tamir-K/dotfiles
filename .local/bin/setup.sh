@@ -32,6 +32,13 @@ readonly PRISMLAUNCHER_REPO=(
     https://prism-launcher-for-debian.github.io/repo/prismlauncher.gpg
 )
 readonly PRISMLAUNCHER_PACKAGE=(prismlauncher)
+readonly ZOOM_REPO=(
+    zoom
+    "https://repo.zoom.us/repo/deb release main"
+    zoom
+    https://zoom.us/linux/download/pubkey
+)
+readonly ZOOM_PACKAGE=(zoom)
 readonly CODIUM_EXTENSIONS=(
     james-yu.latex-workshop
     ms-python.python
@@ -41,7 +48,6 @@ readonly CODIUM_EXTENSIONS=(
     google.geminicodeassist
 )
 readonly MEGA_URL="https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb"
-readonly ZOOM_URL="https://zoom.us/client/latest/zoom_amd64.deb"
 
 add_apt_repository() {
     local repo_name=$1
@@ -80,6 +86,11 @@ install_prismlauncher() {
     sudo apt-get update && sudo apt-get install -y "${PRISMLAUNCHER_PACKAGE[@]}"
 }
 
+install_zoom() {
+    add_apt_repository "${ZOOM_REPO[@]}"
+    sudo apt-get update && sudo apt-get install -y "${ZOOM_PACKAGE[@]}"
+}
+
 install_codium_extensions() {
     printf "%s\n" "${CODIUM_EXTENSIONS[@]}" | xargs -n 1 codium --install-extension
 }
@@ -89,8 +100,8 @@ main() {
     install_regular_packages
     install_extrepo_packages
     install_prismlauncher
+    install_zoom
     install_deb_from_url $MEGA_URL
-    install_deb_from_url $ZOOM_URL
     install_codium_extensions
 }
 
