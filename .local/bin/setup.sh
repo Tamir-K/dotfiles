@@ -32,6 +32,7 @@ readonly PRISMLAUNCHER_REPO=(
     https://prism-launcher-for-debian.github.io/repo/prismlauncher.gpg
 )
 readonly PRISMLAUNCHER_PACKAGE=(prismlauncher)
+# https://devforum.zoom.us/t/linux-repo-for-zoom-in-order-to-install-update-native-client/48367/5
 readonly ZOOM_REPO=(
     zoom
     "https://repo.zoom.us/repo/deb release main"
