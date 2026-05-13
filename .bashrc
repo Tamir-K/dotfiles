@@ -64,6 +64,11 @@ alias dps='d ps'
 
 # More aliases
 alias py='python3'
+alias rm=' rm -I --preserve-root'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias ping='ping -c 4'
 alias cls='clear'
 alias ipconfig='ip addr show'
 alias arp='ip neigh show'
