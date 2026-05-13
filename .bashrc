@@ -46,9 +46,8 @@ alias egrep='grep -E'
 alias fgrep='grep -F'
 
 # ls aliases
-alias l='ls -F'
-alias la='ls -AF'
-alias ll='ls -lAF'
+alias l='ls -AF --group-directories-first'
+alias ll='ls -lhAF --group-directories-first'
 
 # Git alias for dotfiles management
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
