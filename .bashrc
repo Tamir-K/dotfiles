@@ -33,12 +33,12 @@ if command -v fzf >/dev/null 2>&1; then
 
     apti() {
         local selection=$(apt-cache pkgnames | fzf --multi --preview='apt show {} 2>/dev/null' --preview-window=67%)
-        [ -z "$selection" ] || sudo apt install -y "$selection[@]"
+        [ -z "$selection" ] || sudo apt install -y "$selection"
     }
 
     aptr() {
         local selection=$(dpkg-query -W -f='${Package}\n' | fzf --multi --preview='apt show {} 2>/dev/null' --preview-window=67%)
-        [ -z "$selection" ] || sudo apt remove -y "$selection[@]"
+        [ -z "$selection" ] || sudo apt remove -y "$selection"
     }
 fi
 
