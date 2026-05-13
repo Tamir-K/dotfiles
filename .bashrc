@@ -26,8 +26,8 @@ if command -v dircolors > /dev/null; then
 fi
 
 # Tool integrations
-source /usr/share/bash-completion/bash_completion # bash-completion
-eval "$(fzf --bash)" # fzf key bindings
+[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion # bash-completion
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)" # fzf key bindings
 
 # Prompt config - made using https://bash-prompt-generator.org/
 PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'
