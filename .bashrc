@@ -64,7 +64,7 @@ alias dps='d ps'
 
 # More aliases
 alias py='python3'
-alias rm=' rm -I --preserve-root'
+alias rm='rm -i --preserve-root'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
