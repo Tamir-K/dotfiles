@@ -25,9 +25,22 @@ if command -v dircolors > /dev/null; then
     alias grep='grep --color=auto'
 fi
 
-# Tool integrations
-[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion # bash-completion
-command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)" # fzf key bindings
+# bash-completion
+[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion 
+# fzf integration
+if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --bash)"
+
+    apti() {
+        local selection=$(apt-cache pkgnames | fzf --multi --preview='apt show {} 2>/dev/null' --preview-window=67%)
+        [ -z "$selection" ] || sudo apt install -y "$selection[@]"
+    }
+
+    aptr() {
+        local selection=$(dpkg-query -W -f='${Package}\n' | fzf --multi --preview='apt show {} 2>/dev/null' --preview-window=67%)
+        [ -z "$selection" ] || sudo apt remove -y "$selection[@]"
+    }
+fi
 
 # Prompt config - made using https://bash-prompt-generator.org/
 PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'
@@ -52,11 +65,6 @@ alias ll='ls -lhAF --group-directories-first'
 # Git alias for dotfiles management
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
-# Package management aliases
-alias apti='sudo apt install $(apt-cache pkgnames | fzf --multi --preview="apt show {}" --preview-window=67%)'
-alias aptr="sudo apt remove \$(dpkg-query -W -f='\${Package}\n' | fzf --multi --preview='apt show {}' --preview-window=67%)"
-alias aptu='sudo apt update && sudo apt upgrade -y'
-
 # Podman aliases
 alias d='podman'
 alias dc='d compose'
@@ -72,3 +80,4 @@ alias ping='ping -c 4'
 alias cls='clear'
 alias ipconfig='ip addr show'
 alias arp='ip neigh show'
+alias aptu='sudo apt update && sudo apt upgrade -y'
