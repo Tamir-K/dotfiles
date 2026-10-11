@@ -42,8 +42,8 @@ readonly ZOOM_REPO=(
 readonly ZOOM_PACKAGE=(zoom)
 readonly CODIUM_EXTENSIONS=(
     james-yu.latex-workshop
-    ms-python.python
-    ms-python.black-formatter
+    meta.pyrefly
+    charliermarsh.ruff
     ms-toolsai.jupyter
     google.colab
 )
