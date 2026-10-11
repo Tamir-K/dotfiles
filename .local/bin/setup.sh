@@ -46,7 +46,6 @@ readonly CODIUM_EXTENSIONS=(
     ms-python.black-formatter
     ms-toolsai.jupyter
     google.colab
-    google.geminicodeassist
 )
 readonly MEGA_URL="https://mega.nz/linux/repo/xUbuntu_${DISTRIB_RELEASE}/amd64/megasync-xUbuntu_${DISTRIB_RELEASE}_amd64.deb"
 
