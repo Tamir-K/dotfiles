@@ -1,5 +1,9 @@
 {
     "workbench.colorTheme": "Default Dark Modern",
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
     "latex-workshop.latex.tools": [
         {
             "name": "lualatex",
@@ -19,9 +23,5 @@
                 "lualatex"
             ]
         }
-    ],
-    "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff",
-        "editor.formatOnSave": true
-    }
+    ]
 }
